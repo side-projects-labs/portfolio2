@@ -3,4 +3,3 @@ export {
   CommandPaletteContext,
   CommandPaletteProvider,
 } from "./model/CommandPaletteContext";
-export { sendMessage } from "./api/sendMessage";

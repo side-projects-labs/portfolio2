@@ -1,7 +1,6 @@
 export * from "./about";
 export * from "./blog";
 export * from "./careers";
-export * from "./chat";
 export * from "./education";
 export * from "./guestbook";
 export * from "./learn";

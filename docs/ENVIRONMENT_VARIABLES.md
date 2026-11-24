@@ -17,6 +17,18 @@ ENABLE_GEMINI_USAGE_PAGE=false
 # 또는 환경변수를 설정하지 않음
 ```
 
+## portfolio-chat 연결
+
+AI 채팅은 별도 저장소 `side-projects-labs/portfolio-chat`이 맡습니다. `portfolio2`는 화면의 AI 챗봇 버튼에서 그 주소로 보내는 링크만 가집니다.
+
+```bash
+# portfolio-chat 주소 (선택, 브라우저에 노출되는 공개 값)
+NEXT_PUBLIC_PORTFOLIO_CHAT_URL=https://portfolio-chat-pi.vercel.app
+```
+
+- 설정하지 않으면 위 주소를 씁니다. 끝의 `/`는 제거하고, 공백뿐인 값은 무시합니다.
+- 토큰이나 키를 넣지 않습니다.
+
 ## 보안 고려사항
 
 1. **서버 사이드에서만 접근 제어**: `getServerSideProps`를 사용하여 서버에서 접근을 차단

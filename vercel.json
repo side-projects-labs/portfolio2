@@ -1,9 +1,3 @@
 {
-  "buildCommand": "pnpm build:check",
-  "functions": {
-    "src/pages/api/chat.ts": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  "buildCommand": "pnpm build:check"
 }
