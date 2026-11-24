@@ -35,4 +35,21 @@ describe("PORTFOLIO_CHAT_URL", () => {
 
     expect(load()).toBe("https://portfolio-chat-pi.vercel.app");
   });
+  it.each([
+    ["javascript 스킴", "javascript:alert(1)"],
+    ["data 스킴", "data:text/html,hi"],
+    ["ftp 스킴", "ftp://chat.example.test"],
+    ["스킴 없는 값", "chat.example.test"],
+    ["URL이 아닌 값", "not a url"],
+  ])("%s이면 무시하고 기본 주소를 쓴다", (_name, value) => {
+    process.env.NEXT_PUBLIC_PORTFOLIO_CHAT_URL = value;
+
+    expect(load()).toBe("https://portfolio-chat-pi.vercel.app");
+  });
+
+  it("http 주소는 허용한다", () => {
+    process.env.NEXT_PUBLIC_PORTFOLIO_CHAT_URL = "http://localhost:3001/";
+
+    expect(load()).toBe("http://localhost:3001");
+  });
 });
