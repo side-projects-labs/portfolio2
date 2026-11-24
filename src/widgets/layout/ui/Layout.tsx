@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import { ReactNode } from "react";
 
-import ChatButton from "@/features/chat/ui/ChatButton";
+import { ChatButton } from "@/features/chat";
 import useHasMounted from "@/shared/hooks/useHasMounted";
 
 import HeaderSidebar from "./header/HeaderSidebar";

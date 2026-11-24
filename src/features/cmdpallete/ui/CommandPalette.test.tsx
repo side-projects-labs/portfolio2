@@ -11,17 +11,9 @@ class ResizeObserverMock {
 
 global.ResizeObserver = ResizeObserverMock;
 
-jest.mock("@/features/cmdpallete/ui/AiResponses", () => {
-  const AiResponses = () => <div>AI 응답</div>;
-  return AiResponses;
-});
 jest.mock("@/features/cmdpallete/ui/QueryNotFound", () => {
   const QueryNotFound = () => <div>결과 없음</div>;
   return QueryNotFound;
-});
-jest.mock("@/features/cmdpallete/ui/AiLoading", () => {
-  const AiLoading = () => <div>로딩</div>;
-  return AiLoading;
 });
 jest.mock("next/router", () => ({
   useRouter: () => ({ pathname: "/", push: jest.fn() }),
@@ -30,9 +22,6 @@ jest.mock("next-themes", () => ({
   useTheme: () => ({ resolvedTheme: "dark", setTheme: jest.fn() }),
 }));
 jest.mock("@/shared/hooks/useIsMobile", () => () => false);
-jest.mock("@/features/cmdpallete/api/sendMessage", () => ({
-  sendMessage: jest.fn(),
-}));
 
 describe("CommandPalette", () => {
   it("Cmd+K를 누르면 검색 입력을 보여 준다", () => {
@@ -45,7 +34,34 @@ describe("CommandPalette", () => {
     fireEvent.keyDown(window, { key: "k", metaKey: true });
 
     expect(
-      screen.getByPlaceholderText("Search or Ask anything..."),
+      screen.getByPlaceholderText("Search anything..."),
     ).toBeInTheDocument();
+  });
+
+  it("일치하는 메뉴가 없는 검색어를 입력하면 결과 없음 안내를 보여 준다", async () => {
+    render(
+      <CommandPaletteProvider>
+        <CommandPalette />
+      </CommandPaletteProvider>,
+    );
+
+    fireEvent.keyDown(window, { key: "k", metaKey: true });
+    fireEvent.change(screen.getByPlaceholderText("Search anything..."), {
+      target: { value: "zzzz-no-match-zzzz" },
+    });
+
+    expect(await screen.findByText("결과 없음")).toBeInTheDocument();
+  });
+
+  it("검색어가 없으면 결과 없음 안내를 보여 주지 않는다", () => {
+    render(
+      <CommandPaletteProvider>
+        <CommandPalette />
+      </CommandPaletteProvider>,
+    );
+
+    fireEvent.keyDown(window, { key: "k", metaKey: true });
+
+    expect(screen.queryByText("결과 없음")).toBeNull();
   });
 });

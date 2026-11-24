@@ -1,3 +1,1 @@
-export { default as TechnicalChat } from "./ui/TechnicalChat";
-export { default as useChatStore } from "./model/useChatStore";
-export * from "./api/gemini";
+export { default as ChatButton } from "./ui/ChatButton";
