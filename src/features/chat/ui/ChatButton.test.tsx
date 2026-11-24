@@ -13,14 +13,13 @@ describe("ChatButton", () => {
     );
   });
 
-  it("새 탭에서 열고 opener를 넘기지 않는다", () => {
+  it("본창에서 이동하고 새 탭을 열지 않는다", () => {
     render(<ChatButton />);
 
     const link = screen.getByRole("link", { name: /AI 챗봇/ });
 
-    expect(link).toHaveAttribute("target", "_blank");
-    expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
-    expect(link).toHaveAttribute("rel", expect.stringContaining("noreferrer"));
+    expect(link).not.toHaveAttribute("target");
+    expect(link).not.toHaveAttribute("rel");
   });
 
   it("글자가 숨겨져 있어도 접근 가능한 이름을 aria-label로 제공한다", () => {
@@ -28,7 +27,7 @@ describe("ChatButton", () => {
 
     expect(screen.getByRole("link", { name: /AI 챗봇/ })).toHaveAttribute(
       "aria-label",
-      "AI 챗봇 (새 탭에서 열림)",
+      "AI 챗봇",
     );
   });
 
